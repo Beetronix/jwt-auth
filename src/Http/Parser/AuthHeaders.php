@@ -36,7 +36,8 @@ class AuthHeaders implements ParserContract
     protected function fromAltHeaders(Request $request): ?string
     {
         return $request->server->get('HTTP_AUTHORIZATION')
-            ?: $request->server->get('REDIRECT_HTTP_AUTHORIZATION');
+			?: ($request->server->get('REDIRECT_HTTP_AUTHORIZATION')
+			?: $request->header('X-Authorization'));
     }
 
     /**
